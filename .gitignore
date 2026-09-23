@@ -1,0 +1,41 @@
+# Compiled class files
+*.class
+
+# Archivos de log
+*.log
+
+# BlueJ files
+*.ctxt
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# Package Files
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# Carpeta de compilados (Eclipse/VSCode)
+bin/
+target/
+out/
+build/
+
+# Archivos de IDE
+.vscode/
+.idea/
+*.iml
+.classpath
+.project
+.settings/
+
+# Maven
+target/
+
+# Gradle
+.gradle/
+build/
