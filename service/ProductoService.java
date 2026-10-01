@@ -2,6 +2,8 @@ package service;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import exception.ProductoNoEncontradoException;
 import model.Producto;
 import util.Validador;
 
@@ -46,12 +48,58 @@ public class ProductoService {
         p.setId(contadorId);
         contadorId++;
 
+        // guardo el producto
         productos.add(p);
 
         return p;
 
     }
 
-    
+    //Read: devuelve toda la lista de productos
+    public List<Producto> listarTodos(){
+        return productos;
+    }
+
+    // buscar un producto por id 
+
+    public Producto obtenerPorId(int id) {
+        for(Producto p : productos){
+            if(p.getId() == id){
+                return p;
+            }
+        }
+
+        throw new ProductoNoEncontradoException("No se encontro un producto con el id " + id);
+    }
+
+    // update: actualiza los datos del producto existente
+    public Producto actualizar(int id,Producto datos){
+        // Reutilizamos obtenerPorId . Si lanza excepcion la actualizacion se cancela
+        Producto p = obtenerPorId(id);
+
+        //validamos los datos antes de aplicarlos
+        Validador.validarNombre(datos.getNombre());
+        Validador.validarPrecio(datos.getPrecio());
+        Validador.validarStock(datos.getStock());
+        Validador.validarCategoria(datos.getCategoria());
+
+        // modificamos el producto encontrado
+        // Como Java pasa los objetos por referencia, los cambios se reflejan en la lista
+        // sin necesidad de hacer nada más.
+        p.setNombre(datos.getNombre());
+        p.setPrecio(datos.getPrecio());
+        p.setStock(datos.getStock());
+        p.setCategoria(datos.getCategoria());
+
+        return p;
+
+    }
+
+    // DELETE: eliminar un producto por ID
+    public void eliminar(int id){
+        Producto p = obtenerPorId(id);
+        productos.remove(p);
+    }
+
     
 }
